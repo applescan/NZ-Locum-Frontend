@@ -114,9 +114,11 @@ video {
 /* loading page animation */
 
 .load-wrapp {
-  /* padding-top: 40vh; */
+  /* padding-top: 20vh; */
   text-align: center;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #fff;
   height: 100vh;
 }
