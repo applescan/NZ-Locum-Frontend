@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3a197ab9.css",
-    "main.js": "/static/js/main.87841518.js",
+    "main.css": "/static/css/main.0241dad0.css",
+    "main.js": "/static/js/main.1549b1d9.js",
     "static/js/372.33bc29bc.chunk.js": "/static/js/372.33bc29bc.chunk.js",
     "static/js/661.efb397b9.chunk.js": "/static/js/661.efb397b9.chunk.js",
     "static/js/188.22ad3aae.chunk.js": "/static/js/188.22ad3aae.chunk.js",
@@ -10,8 +10,8 @@
     "static/js/787.f8e0379c.chunk.js": "/static/js/787.f8e0379c.chunk.js",
     "static/js/653.b871dca3.chunk.js": "/static/js/653.b871dca3.chunk.js",
     "static/js/254.c5bd67da.chunk.js": "/static/js/254.c5bd67da.chunk.js",
-    "static/media/about.jpg": "/static/media/about.16b5c1ad716ff6e2adb0.jpg",
-    "static/media/banner.mp4": "/static/media/banner.5046196a5ce7903f99ac.mp4",
+    "static/media/banner.mp4": "/static/media/banner.175ac619dfcd30306b28.mp4",
+    "static/media/about.jpg": "/static/media/about.1c678bee1d2eaf870600.jpg",
     "static/media/login-background.png": "/static/media/login-background.312d729a4fd9dd033552.png",
     "static/media/banner.png": "/static/media/banner.7023a6a458ef86f1065a.png",
     "static/media/doctor-registration.png": "/static/media/doctor-registration.e7a9eae7699d745c1bce.png",
@@ -29,8 +29,8 @@
     "static/media/clinic-login.png": "/static/media/clinic-login.3e37c69c4c5b5e7493cd.png",
     "static/media/toggle.png": "/static/media/toggle.4f96f6026ad59e98cd8c.png",
     "index.html": "/index.html",
-    "main.3a197ab9.css.map": "/static/css/main.3a197ab9.css.map",
-    "main.87841518.js.map": "/static/js/main.87841518.js.map",
+    "main.0241dad0.css.map": "/static/css/main.0241dad0.css.map",
+    "main.1549b1d9.js.map": "/static/js/main.1549b1d9.js.map",
     "372.33bc29bc.chunk.js.map": "/static/js/372.33bc29bc.chunk.js.map",
     "661.efb397b9.chunk.js.map": "/static/js/661.efb397b9.chunk.js.map",
     "188.22ad3aae.chunk.js.map": "/static/js/188.22ad3aae.chunk.js.map",
@@ -41,7 +41,7 @@
     "254.c5bd67da.chunk.js.map": "/static/js/254.c5bd67da.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a197ab9.css",
-    "static/js/main.87841518.js"
+    "static/css/main.0241dad0.css",
+    "static/js/main.1549b1d9.js"
   ]
 }
