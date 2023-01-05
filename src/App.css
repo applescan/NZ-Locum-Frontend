@@ -99,7 +99,6 @@ video {
   height: 100%;
 }
 
-
 .Page-header {
   height: 20vh;
   display: flex;
@@ -114,7 +113,6 @@ video {
 /* loading page animation */
 
 .load-wrapp {
-  /* padding-top: 20vh; */
   text-align: center;
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.0241dad0.css",
+    "main.css": "/static/css/main.a0e90f6c.css",
     "main.js": "/static/js/main.1549b1d9.js",
     "static/js/372.33bc29bc.chunk.js": "/static/js/372.33bc29bc.chunk.js",
     "static/js/661.efb397b9.chunk.js": "/static/js/661.efb397b9.chunk.js",
@@ -29,7 +29,7 @@
     "static/media/clinic-login.png": "/static/media/clinic-login.3e37c69c4c5b5e7493cd.png",
     "static/media/toggle.png": "/static/media/toggle.4f96f6026ad59e98cd8c.png",
     "index.html": "/index.html",
-    "main.0241dad0.css.map": "/static/css/main.0241dad0.css.map",
+    "main.a0e90f6c.css.map": "/static/css/main.a0e90f6c.css.map",
     "main.1549b1d9.js.map": "/static/js/main.1549b1d9.js.map",
     "372.33bc29bc.chunk.js.map": "/static/js/372.33bc29bc.chunk.js.map",
     "661.efb397b9.chunk.js.map": "/static/js/661.efb397b9.chunk.js.map",
@@ -41,7 +41,7 @@
     "254.c5bd67da.chunk.js.map": "/static/js/254.c5bd67da.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0241dad0.css",
+    "static/css/main.a0e90f6c.css",
     "static/js/main.1549b1d9.js"
   ]
 }
