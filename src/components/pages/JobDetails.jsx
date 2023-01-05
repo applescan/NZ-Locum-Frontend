@@ -17,7 +17,7 @@ export default function JobDetails() {
 
     useEffect(() => {
         axios
-            .get(`https://nz-locum-backend.herokuapp.com/jobs/search/id/${id}`)
+            .get(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/id/${id}`)
             .then(res => {
                 console.log(res.data)
                 setPosts(res.data[0])

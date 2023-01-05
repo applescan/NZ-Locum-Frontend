@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import Loading from '../../elements/Loading';
 
 
 export default function SignUp() {
@@ -30,6 +31,7 @@ export default function SignUp() {
     })
 
     const [error, setError] = useState('')
+    const [uploading, setUploading] = useState(false)
     let myRef = {}
     const navigate = useNavigate()
 
@@ -47,6 +49,7 @@ export default function SignUp() {
         event.preventDefault();
 
         setError(null)
+        setUploading(true)
 
         const toSend = new FormData()
         toSend.append('business_name', details.business_name)
@@ -59,7 +62,7 @@ export default function SignUp() {
         toSend.append('hours', details.hours)
         toSend.append('imageKey', FileRef.current.files[0])
         console.log("uploading")
-        axios.post('https://nz-locum-backend.herokuapp.com/clinics/add', toSend, {
+        axios.post('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/clinics/add', toSend, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data"
@@ -69,17 +72,23 @@ export default function SignUp() {
             setCurrentUserInfoClinic(response.data.currentUserInfoClinic)
             setTimeout(function () { navigate("/sign-in"); }, 2000);
         })
-            .catch((error) => setError(error.response.data.msg))
-    };
+            .catch((error) => setError(error.response.data.msg), setUploading(false))
 
+    };
 
 
     const FileRef = React.useRef()
 
 
+    //when uploading image show the uploading animation
+    if (uploading === true) {
+        return <>
+            <Loading />
+        </>
+    }
 
-    return (
-        <div id="Doctor-registration">
+    if (uploading === false) {
+        return <div id="Doctor-registration">
 
             <PageHeader maoriTitle="Me noho ko tetahi o a maatau whare haumanu kua rehitatia" englishTitle="Become one of our registered clinics" background={DoctorRegistrationBanner} />
 
@@ -235,7 +244,7 @@ export default function SignUp() {
                 </Box>
             </Container>
         </div>
-    );
+    };
 }
 
 

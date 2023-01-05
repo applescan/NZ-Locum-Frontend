@@ -18,6 +18,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
+import Loading from '../../elements/Loading';
 
 
 export default function SignUp() {
@@ -31,6 +32,7 @@ export default function SignUp() {
     })
 
     const [error, setError] = useState('')
+    const [uploading, setUploading] = useState(false)
     let myRef = {}
     const navigate = useNavigate()
 
@@ -49,6 +51,7 @@ export default function SignUp() {
         event.preventDefault();
 
         setError(null)
+        setUploading(true)
 
         const toSend = new FormData()
         toSend.append('first_name', details.first_name)
@@ -63,7 +66,7 @@ export default function SignUp() {
         toSend.append('work_requirement', details.work_requirement)
         toSend.append('imageKey', FileRef.current.files[0])
         console.log("uploading")
-        axios.post('https://nz-locum-backend.herokuapp.com/doctors/add', toSend, {
+        axios.post('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/doctors/add', toSend, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data"
@@ -73,7 +76,7 @@ export default function SignUp() {
             setCurrentUserInfo(response.data.currentUserInfo)
             setTimeout(function () { navigate("/sign-in"); }, 2000);
         })
-            .catch((error) => setError(error.response.data.msg))
+            .catch((error) => setError(error.response.data.msg), setUploading(false))
     };
 
 
@@ -81,8 +84,14 @@ export default function SignUp() {
     const FileRef = React.useRef()
 
 
+    //when uploading image show the uploading animation
+    if (uploading === true) {
+        return <>
+            <Loading />
+        </>
+    }
 
-    return (
+    if (uploading === false) {
         <div id="Doctor-registration">
 
             <PageHeader maoriTitle="Hono mai ki ta maatau whatunga o nga taote!" englishTitle="Join our network of doctors 🐾" background={DoctorRegistrationBanner} />
@@ -267,7 +276,7 @@ export default function SignUp() {
                 </Box>
             </Container>
         </div>
-    );
+    };
 }
 
 
