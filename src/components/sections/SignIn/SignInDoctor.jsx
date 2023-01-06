@@ -33,7 +33,7 @@ const SignIn = () => {
 
         const user = new FormData(event.currentTarget);
 
-        axios.post('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/doctors/login', user, {
+        axios.post('https://www.nz-vet-locum.online/doctors/login', user, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data"

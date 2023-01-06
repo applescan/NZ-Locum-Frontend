@@ -37,7 +37,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/all')
+            .get('https://www.nz-vet-locum.online/jobs/all')
             .then(res => {
                 console.log(res)
                 setPost(res.data)
@@ -50,7 +50,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/north')
+            .get('https://www.nz-vet-locum.online/jobs/search/north')
             .then(res => {
                 //console.log(res)
                 setNorthland(res.data)
@@ -63,7 +63,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/auck')
+            .get('https://www.nz-vet-locum.online/jobs/search/auck')
             .then(res => {
                 //console.log(res)
                 setAuckland(res.data)
@@ -76,7 +76,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/well')
+            .get('https://www.nz-vet-locum.online/jobs/search/well')
             .then(res => {
                 //console.log(res)
                 setWellington(res.data)
@@ -89,7 +89,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/dun')
+            .get('https://www.nz-vet-locum.online/jobs/search/dun')
             .then(res => {
                 //console.log(res)
                 setDunedin(res.data)
@@ -102,7 +102,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/chri')
+            .get('https://www.nz-vet-locum.online/jobs/search/chri')
             .then(res => {
                 //console.log(res)
                 setChristchurch(res.data)
@@ -115,7 +115,7 @@ export default function JobList() {
 
     useEffect(() => {
         axios
-            .get('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/queen')
+            .get('https://www.nz-vet-locum.online/jobs/search/queen')
             .then(res => {
                 //console.log(res)
                 setQueenstown(res.data)

@@ -62,7 +62,7 @@ export default function SignUp() {
         toSend.append('hours', details.hours)
         toSend.append('imageKey', FileRef.current.files[0])
         console.log("uploading")
-        axios.post('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/clinics/add', toSend, {
+        axios.post('https://www.nz-vet-locum.online/clinics/add', toSend, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data"

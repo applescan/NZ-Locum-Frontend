@@ -62,7 +62,7 @@ export default function JobList() {
 
             //getting current user's data based on the id stored in local storage
             const getJobsByClinicId = async () => {
-                const res = await axios.get(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/search/clinic/${userClinic._id}`);
+                const res = await axios.get(`https://www.nz-vet-locum.online/jobs/search/clinic/${userClinic._id}`);
                 console.log(res.data)
                 setPost(res.data)
             };
@@ -78,7 +78,7 @@ export default function JobList() {
         event.preventDefault();
 
         try {
-            await axios.delete(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/delete/${postid}`);
+            await axios.delete(`https://www.nz-vet-locum.online/jobs/delete/${postid}`);
             window.location.reload()
         } catch (error) {
             console.log(error);
@@ -124,7 +124,7 @@ export default function JobList() {
         toSend.append('clinic_id', userClinic._id) //automatically sets the clinic id with the logged in user's id
         console.log(toSend)
 
-        axios.post('http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/add', toSend, {
+        axios.post('https://www.nz-vet-locum.online/jobs/add', toSend, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data"
@@ -159,7 +159,7 @@ export default function JobList() {
 
 
         try {
-            fetch(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/jobs/update/${postid}`, {
+            fetch(`https://www.nz-vet-locum.online/jobs/update/${postid}`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

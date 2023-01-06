@@ -61,7 +61,7 @@ export default function DoctorProfile() {
         event.preventDefault();
 
         try {
-            await axios.delete(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/clinics/delete/${userClinic._id}`);
+            await axios.delete(`https://www.nz-vet-locum.online/clinics/delete/${userClinic._id}`);
             localStorage.clear(); //clear user data on sign-out 
             setCurrentUserInfoClinic({})
             navigate('/')
@@ -80,7 +80,7 @@ export default function DoctorProfile() {
 
             //getting current user's data based on the id stored in local storage
             const getUserById = async () => {
-                const res = await axios.get(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/clinics/search/${userClinic._id}`);
+                const res = await axios.get(`https://www.nz-vet-locum.online/clinics/search/${userClinic._id}`);
                 setCurrentUserInfoClinic(res.data.currentUserInfoClinic[0])
                 console.log(res.data.currentUserInfoClinic[0])
             };
@@ -127,7 +127,7 @@ export default function DoctorProfile() {
         console.log("uploading")
 
         try {
-            fetch(`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/clinics/update/${userClinic._id}`, {
+            fetch(`https://www.nz-vet-locum.online/clinics/update/${userClinic._id}`, {
                 method: "POST",
                 body: toSend
             }).then(() => {
@@ -164,7 +164,7 @@ export default function DoctorProfile() {
                         <MDBCard className="mb-4">
                             <MDBCardBody className="text-center">
                                 <MDBCardImage
-                                    src={`http://nzlocumnetwork-env.eba-beqbmmm3.us-east-1.elasticbeanstalk.com/images/${currentUserInfoClinic.imageKey}`}
+                                    src={`https://www.nz-vet-locum.online/images/${currentUserInfoClinic.imageKey}`}
                                     alt="avatar"
                                     className="rounded"
                                     style={{ width: '250px', height: '200px', objectFit: 'cover' }}
