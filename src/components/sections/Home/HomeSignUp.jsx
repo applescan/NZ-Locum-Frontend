@@ -23,6 +23,8 @@ export default function About() {
               <br></br>
               <br></br>
               <h6>Join as a vet locum</h6>
+              <br></br>
+              <br></br>
             </div>
           </LeftSide>
 
@@ -33,6 +35,8 @@ export default function About() {
               <br></br>
               <br></br>
               <h6>Join as a clinic</h6>
+              <br></br>
+              <br></br>
             </div>
           </RightSide>
         </Links>
@@ -57,6 +61,7 @@ const Title = styled.section`
   justify-content: center;
   @media (max-width: 960px) {
     flex-direction: column;
+    padding-bottom: 30px;
   }
 `;
 

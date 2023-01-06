@@ -282,7 +282,7 @@ export default function DoctorProfile() {
                                             <Card>
                                                 <div id='cards'>
                                                     <input ref={FileRef} type="file" />
-                                                    <div className="small text-muted mt-2">Upload your profile picture. Max file size 5 MB</div>
+                                                    <div className="small text-muted mt-2">Upload your profile picture. Max file size 1 MB</div>
                                                 </div>
                                             </Card>
                                         </Grid>
