@@ -92,7 +92,7 @@ export default function SignUp() {
     }
 
     if (uploading === false) {
-        <div id="Doctor-registration">
+        return <div id="Doctor-registration">
 
             <PageHeader maoriTitle="Hono mai ki ta maatau whatunga o nga taote!" englishTitle="Join our network of doctors 🐾" background={DoctorRegistrationBanner} />
 
