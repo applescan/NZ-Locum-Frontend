@@ -71,10 +71,9 @@ export default function SignUp() {
         }).then(response => {
             console.log(response.data)
             setCurrentUserInfoClinic(response.data.currentUserInfoClinic)
-            setUploading(true)
-            setTimeout(function () { navigate("/sign-in"); }, 2000);
+            navigate("/sign-in")
         })
-            .catch((error) => setError(error.response.data.msg), setUploading(false))
+            .catch((error) => { setError(error.response.data.msg); setUploading(false) }) //runs both function, setUploading is a second param to .catch
 
     };
 
@@ -94,7 +93,7 @@ export default function SignUp() {
 
             <div id="Doctor-registration">
 
-                <PageHeader maoriTitle="Me noho ko tetahi o a maatau whare haumanu kua rehitatia" englishTitle="Become one of our registered clinics" background={DoctorRegistrationBanner} />
+                <PageHeader maoriTitle="Rēhitahia to whare haumanu" englishTitle="Register your clinic" background={DoctorRegistrationBanner} />
 
                 <Container component="main" maxWidth="md" >
                     <CssBaseline />

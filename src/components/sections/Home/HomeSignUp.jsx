@@ -70,7 +70,6 @@ const Wrapper = styled.section`
   display: block;
   padding-left: 10%;
   padding-right: 10%;
-  padding-bottom: 5%;
   height: 100%;
   color: #fff;
   background-color: #5BA4EE;

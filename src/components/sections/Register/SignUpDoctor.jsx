@@ -75,13 +75,12 @@ export default function SignUp() {
         }).then(response => {
             console.log(response.data)
             setCurrentUserInfo(response.data.currentUserInfo)
-            setUploading(true)
-            setTimeout(function () { navigate("/sign-in"); }, 2000);
+            navigate("/sign-in")
         })
-            .catch((error) => setError(error.response.data.msg), setUploading(false))
+            .catch((error) => { setError(error.response.data.msg); setUploading(false) }) //runs both function, setUploading is a second param to .catch
     };
 
-    
+
 
     const FileRef = React.useRef()
 
@@ -97,7 +96,7 @@ export default function SignUp() {
         return <>
             <div id="Doctor-registration">
 
-                <PageHeader maoriTitle="Hono mai ki ta maatau whatunga o nga taote!" englishTitle="Join our network of doctors 🐾" background={DoctorRegistrationBanner} />
+                <PageHeader maoriTitle="Rēhita hei waahi" englishTitle="Register as a locum" background={DoctorRegistrationBanner} />
 
                 <Container component="main" maxWidth="md" >
                     <CssBaseline />
