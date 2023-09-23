@@ -27,7 +27,7 @@ export default function JobList() {
     const [basicActive, setBasicActive] = useState('all');
     const navigate = useNavigate()
 
-    const handleBasicClick = (value: string) => {
+    const handleBasicClick = (value) => {
         if (value === basicActive) {
             return;
         }
