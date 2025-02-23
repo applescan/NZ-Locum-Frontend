@@ -33,7 +33,7 @@ import Loading from "../elements/Loading";
 
 const theme = createTheme();
 
-export default function DoctorProfile() {
+export default function ClinicProfile() {
   const FileRef = React.useRef();
   const navigate = useNavigate();
 
@@ -114,44 +114,20 @@ export default function DoctorProfile() {
     console.log(data.get("business_name"));
 
     const business_name =
-      data.get("business_name") == null
-        ? currentUserInfoClinic.business_name
-        : data.get("business_name");
-    const email =
-      data.get("email") == null
-        ? currentUserInfoClinic.email
-        : data.get("email");
-    const password =
-      data.get("password") == null
-        ? currentUserInfoClinic.password
-        : data.get("password");
+      data.get("business_name") || currentUserInfoClinic.business_name;
+    const email = data.get("email") || currentUserInfoClinic.email;
+    let password = data.get("password"); // get the entered password
     const specialities =
-      data.get("specialities") == null
-        ? currentUserInfoClinic.specialities
-        : data.get("specialities");
-    const phone =
-      data.get("phone") == null
-        ? currentUserInfoClinic.phone
-        : data.get("phone");
-    const address =
-      data.get("address") == null
-        ? currentUserInfoClinic.address
-        : data.get("address");
-    const city =
-      data.get("city") == null ? currentUserInfoClinic.city : data.get("city");
-    const hours =
-      data.get("hours") == null
-        ? currentUserInfoClinic.hours
-        : data.get("hours");
-    const imageKey =
-      FileRef.current.files[0] == null
-        ? currentUserInfoClinic.imageKey
-        : FileRef.current.files[0];
+      data.get("specialities") || currentUserInfoClinic.specialities;
+    const phone = data.get("phone") || currentUserInfoClinic.phone;
+    const address = data.get("address") || currentUserInfoClinic.address;
+    const city = data.get("city") || currentUserInfoClinic.city;
+    const hours = data.get("hours") || currentUserInfoClinic.hours;
+    const imageKey = FileRef.current.files[0] || currentUserInfoClinic.imageKey;
 
     const toSend = new FormData();
     toSend.append("business_name", business_name);
     toSend.append("email", email);
-    toSend.append("password", password);
     toSend.append("specialities", specialities);
     toSend.append("phone", phone);
     toSend.append("city", city);
@@ -159,7 +135,10 @@ export default function DoctorProfile() {
     toSend.append("address", address);
     toSend.append("imageKey", imageKey);
 
-    console.log("uploading");
+    // Send password only if it was updated
+    if (password && password !== currentUserInfoClinic.password) {
+      toSend.append("password", password); // append new password
+    }
 
     try {
       fetch(
@@ -399,7 +378,6 @@ export default function DoctorProfile() {
                           id="password"
                           autoComplete="new-password"
                           placeholder={"Your password"}
-                          defaultValue={currentUserInfoClinic.password}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>

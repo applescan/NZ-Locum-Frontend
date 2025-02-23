@@ -110,10 +110,7 @@ export default function DoctorProfile() {
         : data.get("last_name");
     const email =
       data.get("email") == null ? currentUserInfo.email : data.get("email");
-    const password =
-      data.get("password") == null
-        ? currentUserInfo.password
-        : data.get("password");
+    let password = data.get("password"); // Get entered password
     const specialities =
       data.get("specialities") == null
         ? currentUserInfo.specialities
@@ -143,7 +140,6 @@ export default function DoctorProfile() {
     toSend.append("first_name", first_name);
     toSend.append("last_name", last_name);
     toSend.append("email", email);
-    toSend.append("password", password);
     toSend.append("specialities", specialities);
     toSend.append("phone", phone);
     toSend.append("city", city);
@@ -151,6 +147,11 @@ export default function DoctorProfile() {
     toSend.append("availability", availability);
     toSend.append("work_requirement", work_requirement);
     toSend.append("imageKey", imageKey);
+
+    // Send password only if it was updated
+    if (password && password !== "") {
+      toSend.append("password", password); // Append new password
+    }
 
     try {
       fetch(
@@ -411,7 +412,6 @@ export default function DoctorProfile() {
                           id="password"
                           autoComplete="new-password"
                           placeholder={"Your password"}
-                          defaultValue={currentUserInfo.password}
                         />
                       </Grid>
                       <Grid item xs={12}>
