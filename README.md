@@ -32,7 +32,7 @@ filling a specialized need for a distinct sector on the website rather than spec
 
 ## Screenshots
 
-![](https://github.com/applescan/NZ-Veterinary-Locum-Frontend/blob/main/src/images/Capstone%20cover.png)
+![](https://github.com/applescan/NZ-Locum-Frontend/blob/main/src/images/Capstone%20cover.png)
 
 ## Demo
 
