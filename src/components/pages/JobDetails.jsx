@@ -6,6 +6,7 @@ import ButtonBlue from "../elements/ButtonBlue";
 import { useNavigate } from 'react-router-dom';
 import ButtonBlueOutlined from '../elements/ButtonBlueOutlined';
 import Card from 'react-bootstrap/Card';
+import Loading from "../elements/Loading";
 
 
 export default function JobDetails() {
@@ -30,13 +31,30 @@ export default function JobDetails() {
     }, []) //only do get request on load
 
 
+    // Loading state while data is being fetched
+    if (!posts && !errorMessage) {
+        return (
+            <div style={{ minHeight: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Loading />
+            </div>
+        );
+    }
+
+    // Error state
+    if (errorMessage) {
+        return (
+            <div style={{ minHeight: "80vh", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                <h3>Error: {errorMessage}</h3>
+                <ButtonBlue onClick={() => { navigate(-1) }} name="Go Back" size='med' style={{ marginTop: "20px" }}></ButtonBlue>
+            </div>
+        );
+    }
+
+    // Data loaded successfully
     return (
         <div id="Doctor-login">
-            {posts ?
-
+            {posts && (
                 <Wrapper style={{ height: '100%' }}>
-
-
                     <div>
                         <h6><b>Job ID: </b> {posts._id}</h6>
                         <br></br>
@@ -47,7 +65,7 @@ export default function JobDetails() {
                         </h5>
                         <br></br>
                         <Card.Link href={`mailto:${posts.email}`}><ButtonBlue name="Email Company" style={{ marginRight: 30 }} size='sml'></ButtonBlue></Card.Link>
-                        <Card.Link href={`tel:${posts.phone}`}><ButtonBlueOutlined onClick='hello' name="Call Job Lister" style={{ marginRight: 30 }} size='sml'></ButtonBlueOutlined></Card.Link>
+                        <Card.Link href={`tel:${posts.phone}`}><ButtonBlueOutlined name="Call Job Lister" style={{ marginRight: 30 }} size='sml'></ButtonBlueOutlined></Card.Link>
                         <hr></hr>
 
                         <p><b>Email: </b>{posts.email}</p>
@@ -61,15 +79,9 @@ export default function JobDetails() {
 
                         <br></br>
                         <ButtonBlue onClick={() => { navigate(-1) }} name="Back" size='med'></ButtonBlue>
-
                     </div>
-
-
                 </Wrapper>
-
-                : null
-            }
-            {errorMessage ? <div>{errorMessage}</div> : null}
+            )}
         </div>
     );
 }

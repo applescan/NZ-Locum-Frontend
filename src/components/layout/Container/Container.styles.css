@@ -1,0 +1,41 @@
+/* Container styles */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container--padding {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.container--sm {
+  max-width: 540px;
+}
+
+.container--md {
+  max-width: 720px;
+}
+
+.container--lg {
+  max-width: 960px;
+}
+
+.container--xl {
+  max-width: 1140px;
+}
+
+.container--fluid {
+  max-width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .container--sm,
+  .container--md,
+  .container--lg,
+  .container--xl {
+    max-width: 100%;
+  }
+}

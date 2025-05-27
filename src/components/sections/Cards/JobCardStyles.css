@@ -1,0 +1,49 @@
+/* Job card styles */
+.card-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .card-horizontal {
+        flex-wrap: nowrap;
+    }
+}
+
+.card {
+    margin-bottom: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    color: #0077B6;
+    margin-bottom: 16px;
+}
+
+.card-text {
+    margin-bottom: 12px;
+}
+
+.card-body p {
+    margin-bottom: 8px;
+}
+
+/* Ensure "See Details" button is at the bottom */
+.card-body:last-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body:last-child button {
+    margin-top: auto;
+}

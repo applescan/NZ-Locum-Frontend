@@ -1,0 +1,24 @@
+/**
+ * Main stylesheet that imports all other stylesheets
+ */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Import App.css for backward compatibility */
+@import '../App.css';
+
+/* Import Bootstrap */
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+/* Import MDB React UI Kit */
+@import '../../node_modules/mdb-react-ui-kit/dist/css/mdb.min.css';
+
+/* Import CSS variables */
+@import './variables.css';
+
+/* Import reset and base styles */
+@import './reset.css';
+
+/* Import utility classes */
+@import './utilities.css';

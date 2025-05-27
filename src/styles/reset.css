@@ -1,0 +1,84 @@
+/**
+ * Base styles to provide consistent defaults
+ */
+
+/* Box sizing for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Body defaults */
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom typography styles for components that use our styling system */
+.app-heading-1 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.2;
+}
+
+.app-heading-2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.2;
+}
+
+.app-heading-3 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.2;
+}
+
+.app-heading-4 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+.app-heading-5 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+.app-heading-6 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+.app-paragraph {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Custom link styles */
+.app-link {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.app-link:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Custom image styles */
+.app-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

@@ -12,6 +12,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
 import Loading from "../../elements/Loading";
+import './JobCardStyles.css';
 
 
 export default function JobList() {
@@ -127,11 +128,15 @@ export default function JobList() {
     }, []) //only do get request on load
 
     
-    // if the posts haven't loaded yet then show loading screen
-    if (!posts) {
-        return <>
-            <Loading />
-        </>
+    // Show loading screen until all data is loaded
+    const isLoading = !posts || posts.length === 0;
+    
+    if (isLoading) {
+        return (
+            <div style={{ minHeight: "70vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Loading />
+            </div>
+        );
     }
     // if the post has loaded show UI
     return (
