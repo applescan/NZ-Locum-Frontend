@@ -1,766 +1,183 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
-import ButtonBlue from "../../elements/ButtonBlue";
-import ButtonBlueOutlined from "../../elements/ButtonBlueOutlined";
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import ButtonBlue from "../../elements/ButtonBlue/ButtonBlue";
+import ButtonBlueOutlined from "../../elements/ButtonBlueOutlined/ButtonBlueOutlined";
 import ListGroup from "react-bootstrap/ListGroup";
-import {
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane,
-} from "mdb-react-ui-kit";
-import Loading from "../../elements/Loading";
+import Loading from "../../elements/Loading/Loading";
+import "./ClinicCards.css";
+
+const CITIES = [
+  { id: "all", name: "All", endpoint: "all" },
+  { id: "Northland", name: "Northland", endpoint: "north" },
+  { id: "Auckland", name: "Auckland", endpoint: "auck" },
+  { id: "Wellington", name: "Wellington", endpoint: "well" },
+  { id: "Dunedin", name: "Dunedin", endpoint: "dun" },
+  { id: "Christchurch", name: "Christchurch", endpoint: "chr" },
+  { id: "Queenstown", name: "Queenstown", endpoint: "queen" },
+];
 
 export default function DoctorList() {
-  const [posts, setPost] = useState([]);
-  const [northland, setNorthland] = useState([]);
-  const [auckland, setAuckland] = useState([]);
-  const [wellington, setWellington] = useState([]);
-  const [dunedin, setDunedin] = useState([]);
-  const [christchurch, setChristchurch] = useState([]);
-  const [queenstown, setQueenstown] = useState([]);
+  const [doctors, setDoctors] = useState({
+    all: [],
+    Northland: [],
+    Auckland: [],
+    Wellington: [],
+    Dunedin: [],
+    Christchurch: [],
+    Queenstown: [],
+  });
   const [error, setError] = useState("");
   const [basicActive, setBasicActive] = useState("all");
+  const [loading, setLoading] = useState(true);
 
   const handleBasicClick = (value) => {
-    if (value === basicActive) {
-      return;
-    }
-
+    if (value === basicActive) return;
     setBasicActive(value);
   };
 
   useEffect(() => {
-    axios
-      .get("https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/all")
-      .then((res) => {
-        console.log(res);
-        setPost(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+    const fetchData = async () => {
+      try {
+        const results = await Promise.all(
+          CITIES.map(async (city) => {
+            const endpoint =
+              city.id === "all"
+                ? "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/all"
+                : `https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/${city.endpoint}`;
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/north"
-      )
-      .then((res) => {
-        //console.log(res)
-        setNorthland(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+            const response = await axios.get(endpoint);
+            return { id: city.id, data: response.data };
+          })
+        );
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/auck"
-      )
-      .then((res) => {
-        //console.log(res)
-        setAuckland(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+        const newDoctors = results.reduce((acc, { id, data }) => {
+          acc[id] = data;
+          return acc;
+        }, {});
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/well"
-      )
-      .then((res) => {
-        //console.log(res)
-        setWellington(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+        setDoctors(newDoctors);
+      } catch (err) {
         setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/dun"
-      )
-      .then((res) => {
-        //console.log(res)
-        setDunedin(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+    fetchData();
+  }, []);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/chr"
-      )
-      .then((res) => {
-        //console.log(res)
-        setChristchurch(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+  const DoctorCard = ({ doctor }) => (
+    <div className="clinic-card">
+      <div className="card-img-container" style={{ aspectRatio: "1/1" }}>
+        <img
+          src={doctor.imageKey}
+          className="card-img"
+          alt={`Dr. ${doctor.first_name} ${doctor.last_name}`}
+          style={{ objectPosition: "top center" }}
+        />
+      </div>
+      <div className="card-body">
+        <h3 className="card-title">
+          Dr. {doctor.first_name} {doctor.last_name}
+        </h3>
+        <p className="card-text">{doctor.city}, New Zealand</p>
+        <ListGroup className="list-group-flush">
+          <ListGroup.Item>
+            <b>Email: </b>
+            {doctor.email}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Phone: </b>
+            {doctor.phone}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Specialities: </b>
+            {doctor.specialities}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>License: </b>
+            {doctor.license}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Availability: </b>
+            {doctor.availability}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <b>Work Requirement: </b>
+            {doctor.work_requirement}
+          </ListGroup.Item>
+        </ListGroup>
+        <div className="card-actions">
+          <a href={`mailto:${doctor.email}`}>
+            <ButtonBlue name="Email" size="sml" />
+          </a>
+          <a href={`tel:${doctor.phone}`}>
+            <ButtonBlueOutlined name="Call Me" size="sml" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://nz-locum-backend-3a82ed85ab97.herokuapp.com/doctors/search/city/queen"
-      )
-      .then((res) => {
-        //console.log(res)
-        setQueenstown(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error retrieving data");
-      });
-  }, []); //only do get request on load
+  const CityTabContent = ({ cityId }) => {
+    const cityDoctors = doctors[cityId];
 
-  // if the posts haven't loaded yet then show loading screen
-  if (!posts) {
+    if (loading)
+      return (
+        <div className="loading-container">
+          <Loading />
+        </div>
+      );
+
+    return cityDoctors.length > 0 ? (
+      <div className="clinics-grid">
+        {cityDoctors.map((doctor) => (
+          <DoctorCard key={doctor._id} doctor={doctor} />
+        ))}
+        {error && (
+          <Alert key="danger" variant="danger">
+            {error.toString()}
+          </Alert>
+        )}
+      </div>
+    ) : (
+      <div className="no-clinics-message">
+        <Alert variant="info">No doctors registered in this area</Alert>
+      </div>
+    );
+  };
+
+  if (loading) {
     return (
-      <>
+      <div className="loading-container">
         <Loading />
-      </>
+      </div>
     );
   }
-  // if the post has loaded show UI
+
   return (
-    <>
-      <MDBTabs pills justify className="mb-3" id="cards">
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("all")}
-            active={basicActive === "all"}
+    <div className="clinic-list-container">
+      <div className="city-tabs">
+        {CITIES.map((city) => (
+          <button
+            key={city.id}
+            className={`city-tab ${basicActive === city.id ? "active" : ""}`}
+            onClick={() => handleBasicClick(city.id)}
           >
-            All
-          </MDBTabsLink>
-        </MDBTabsItem>
+            {city.name}
+          </button>
+        ))}
+      </div>
 
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Northland")}
-            active={basicActive === "Northland"}
-          >
-            Northland
-          </MDBTabsLink>
-        </MDBTabsItem>
-
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Auckland")}
-            active={basicActive === "Auckland"}
-          >
-            Auckland
-          </MDBTabsLink>
-        </MDBTabsItem>
-
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Wellington")}
-            active={basicActive === "Wellington"}
-          >
-            Wellington
-          </MDBTabsLink>
-        </MDBTabsItem>
-
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Dunedin")}
-            active={basicActive === "Dunedin"}
-          >
-            Dunedin
-          </MDBTabsLink>
-        </MDBTabsItem>
-
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Christchurch")}
-            active={basicActive === "Christchurch"}
-          >
-            Christchurch
-          </MDBTabsLink>
-        </MDBTabsItem>
-
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("Queenstown")}
-            active={basicActive === "Queenstown"}
-          >
-            Queenstown
-          </MDBTabsLink>
-        </MDBTabsItem>
-      </MDBTabs>
-
-      <MDBTabsContent>
-        <MDBTabsPane show={basicActive === "all"}>
-          <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-            {posts.map((post) => (
-              <Col>
-                <Card style={{ width: "auto" }}>
-                  <Card.Img
-                    variant="top"
-                    src={post.imageKey}
-                    style={{
-                      width: "auto",
-                      height: "300px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <div id="cards">
-                    <Card.Title>
-                      Dr. {post.first_name} {post.last_name}{" "}
-                    </Card.Title>
-                    <Card.Text>{post.city}, New Zealand</Card.Text>
-                  </div>
-                  <ListGroup className="list-group-flush">
-                    <ListGroup.Item>
-                      <b>Email: </b>
-                      {post.email}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <b>Phone: </b>
-                      {post.phone}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <b>Specialities: </b>
-                      {post.specialities}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <b>License: </b>
-                      {post.license}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <b>Availability: </b>
-                      {post.availability}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <b>Work Requirement: </b>
-                      {post.work_requirement}
-                    </ListGroup.Item>
-                  </ListGroup>
-                  <span id="cards">
-                    <Card.Link href={`mailto:${post.email}`}>
-                      <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                    </Card.Link>
-                    <Card.Link href={`tel:${post.phone}`}>
-                      <ButtonBlueOutlined
-                        onClick="hello"
-                        name="Call Me"
-                        style={{ marginRight: 30 }}
-                        size="sml"
-                      ></ButtonBlueOutlined>
-                    </Card.Link>
-                  </span>
-                </Card>
-              </Col>
-            ))}
-
-            {error ? (
-              <Alert key="danger" variant="danger" id="cards">
-                {" "}
-                {error.toString()}
-              </Alert>
-            ) : null}
-          </Row>
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Northland"}>
-          {/* if there's data then show cards, if not then show error */}
-          {northland.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {northland.map((north) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={north.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {north.first_name} {north.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{north.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {north.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {north.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {north.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {north.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {north.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {north.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${north.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${north.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Auckland"}>
-          {/* if there's data then show cards, if not then show error */}
-          {auckland.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {auckland.map((auck) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={auck.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {auck.first_name} {auck.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{auck.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {auck.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {auck.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {auck.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {auck.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {auck.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {auck.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${auck.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${auck.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Wellington"}>
-          {/* if there's data then show cards, if not then show error */}
-          {wellington.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {wellington.map((wlg) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={wlg.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {wlg.first_name} {wlg.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{wlg.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {wlg.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {wlg.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {wlg.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {wlg.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {wlg.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {wlg.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${wlg.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${wlg.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Dunedin"}>
-          {/* if there's data then show cards, if not then show error */}
-          {dunedin.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {dunedin.map((dune) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={dune.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {dune.first_name} {dune.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{dune.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {dune.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {dune.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {dune.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {dune.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {dune.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {dune.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${dune.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${dune.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Christchurch"}>
-          {/* if there's data then show cards, if not then show error */}
-          {christchurch.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {christchurch.map((chch) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={chch.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {chch.first_name} {chch.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{chch.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {chch.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {chch.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {chch.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {chch.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {chch.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {chch.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${chch.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${chch.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-
-        <MDBTabsPane show={basicActive === "Queenstown"}>
-          {/* if there's data then show cards, if not then show error */}
-          {queenstown.length > 0 ? (
-            <Row xs={1} md={3} lg={4} className="g-4" id="cards">
-              {queenstown.map((queens) => (
-                <Col>
-                  <Card style={{ width: "auto" }}>
-                    <Card.Img
-                      variant="top"
-                      src={queens.imageKey}
-                      style={{
-                        width: "auto",
-                        height: "300px",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div id="cards">
-                      <Card.Title>
-                        Dr. {queens.first_name} {queens.last_name}{" "}
-                      </Card.Title>
-                      <Card.Text>{queens.city}, New Zealand</Card.Text>
-                    </div>
-                    <ListGroup className="list-group-flush">
-                      <ListGroup.Item>
-                        <b>Email: </b>
-                        {queens.email}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Phone: </b>
-                        {queens.phone}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Specialities: </b>
-                        {queens.specialities}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>License: </b>
-                        {queens.license}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Availability: </b>
-                        {queens.availability}
-                      </ListGroup.Item>
-                      <ListGroup.Item>
-                        <b>Work Requirement: </b>
-                        {queens.work_requirement}
-                      </ListGroup.Item>
-                    </ListGroup>
-                    <span id="cards">
-                      <Card.Link href={`mailto:${queens.email}`}>
-                        <ButtonBlue name="Email" size="sml"></ButtonBlue>
-                      </Card.Link>
-                      <Card.Link href={`tel:${queens.phone}`}>
-                        <ButtonBlueOutlined
-                          onClick="hello"
-                          name="Call Me"
-                          style={{ marginRight: 30 }}
-                          size="sml"
-                        ></ButtonBlueOutlined>
-                      </Card.Link>
-                    </span>
-                  </Card>
-                </Col>
-              ))}
-
-              {error ? (
-                <Alert key="danger" variant="danger">
-                  {" "}
-                  {error.toString()}
-                </Alert>
-              ) : null}
-            </Row>
-          ) : (
-            <div id="card-page">
-              <Alert id="cards">No doctors in this area</Alert>
-            </div>
-          )}
-        </MDBTabsPane>
-      </MDBTabsContent>
-    </>
+      {CITIES.map((city) => (
+        <div
+          key={city.id}
+          style={{ display: basicActive === city.id ? "block" : "none" }}
+        >
+          <CityTabContent cityId={city.id} />
+        </div>
+      ))}
+    </div>
   );
 }

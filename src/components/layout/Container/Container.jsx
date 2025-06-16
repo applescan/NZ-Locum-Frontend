@@ -1,24 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Container.styles.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./Container.styles.css";
 
-/**
- * Container component for consistent page content width
- */
-const Container = ({ 
-  children, 
-  maxWidth = 'lg',
+const Container = ({
+  children,
+  maxWidth = "lg",
   padding = true,
-  className = '',
+  className = "",
   ...props
 }) => {
   const containerClasses = [
-    'container',
+    "container",
     `container--${maxWidth}`,
-    padding ? 'container--padding' : '',
-    className
-  ].filter(Boolean).join(' ');
-  
+    padding ? "container--padding" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={containerClasses} {...props}>
       {children}
@@ -34,7 +33,7 @@ Container.propTypes = {
   /**
    * Maximum width of the container
    */
-  maxWidth: PropTypes.oneOf(['sm', 'md', 'lg', 'xl', 'fluid']),
+  maxWidth: PropTypes.oneOf(["sm", "md", "lg", "xl", "fluid"]),
   /**
    * Whether to add horizontal padding
    */

@@ -1,73 +1,32 @@
 import React from "react";
-import styled from "styled-components";
-import AboutImg from '../../../images/about.jpg'
-import ButtonBlue from '../../elements/ButtonBlue'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import ButtonBlue from "../../elements/ButtonBlue/ButtonBlue";
+import AboutImg from "../../../images/about.jpg";
+import "./HomeAbout.css";
 
 export default function About() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <>
-      <Wrapper id="Home-about" className="container flexSpaceCenter">
-        <LeftSide className="flexCenter">
-          <div>
-            <h4>NZ Veterinary Locum Network is a collective organization</h4>
-            <p>For locums and clinics to find each other in a single platform.</p>
-            <br></br>
-            <ButtonBlue onClick={() => { navigate(`/about`) }} name="Learn More" size='sml'></ButtonBlue>
-          </div>
-        </LeftSide>
-
-
-        <RightSide>
-          <img src={AboutImg} className='img-fluid rounded' alt='vet with a dog smiling' />
-
-        </RightSide>
-      </Wrapper>
-
-    </>
+    <section id="home-about" className="about-container">
+      <div className="about-content-wrapper">
+        <div className="about-text">
+          <h4>NZ Veterinary Locum Network is a collective organization</h4>
+          <p>For locums and clinics to find each other in a single platform.</p>
+          <ButtonBlue
+            onClick={() => navigate("/about")}
+            name="Learn More"
+            size="sml"
+          />
+        </div>
+        <div className="about-image-container">
+          <img
+            src={AboutImg}
+            className="about-image"
+            alt="Vet with a dog smiling"
+          />
+        </div>
+      </div>
+    </section>
   );
 }
-
-
-const Wrapper = styled.section`
-  padding: 50px 3%;
-  width: 100%;
-  display: flex;
-  @media (max-width: 960px) {
-    flex-direction: column;
-  }
-`;
-const LeftSide = styled.div`
-  width: 50%;
-  height: 100%;
-  padding-top: 150px;
-  padding-right:50px;
-  
-  @media (max-width: 960px) {
-    order: 2;
-    width: 100%;
-    padding: 50px 0;
-    text-align: left;
-  }
-  @media (max-width: 860px) {
-    order: 2;
-    width: 100%;
-    padding: 20px 50px;
-    text-align: left;
-  }
-`;
-const RightSide = styled.div`
-  width: 50%;
-  height: 100%;
-  text-align: center;
-  padding: 5%;
-
-  @media (max-width: 960px) {
-    width: 100%;
-    padding: 0 50px;
-    text-align: left;
-  }
-`;

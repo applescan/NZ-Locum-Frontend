@@ -1,112 +1,43 @@
 import React from "react";
-import styled from "styled-components";
-import ClinicLogin from '../../images/clinic-login.png'
-import DoctorLogin from '../../images/doctor-login.png'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import ClinicLogin from "../../images/clinic-login.png";
+import DoctorLogin from "../../images/doctor-login.png";
+import "./SignIn.css";
 
-export default function About() {
+export default function SignIn() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  return (
+    <div className="about-wrapper" id="Doctor-login">
+      <section className="about-title">
+        <h1>Sign in to NZ Veterinary Locum Network</h1>
+      </section>
 
-    return (
-        <>
-            <Wrapper id="Doctor-login">
-                <Title>
-                    <br></br>
-                    <h1>Sign in to NZ Veterinary Locum Network</h1>
-                </Title>
+      <section className="about-links">
+        <div className="about-side">
+          <div className="img-link">
+            <img
+              src={DoctorLogin}
+              className="img-fluid rounded"
+              alt="sign-in as a doctor"
+              onClick={() => navigate(`/sign-in-doctor`)}
+            />
+            <h6>Sign in as vet locum</h6>
+          </div>
+        </div>
 
-                <Links>
-                    <LeftSide>
-                        <div className="img-link">
-                            <img src={DoctorLogin} className='img-fluid rounded' alt='sign-in as a doctor' onClick={() => { navigate(`/sign-in-doctor`) }} />
-                            <br></br>
-                            <br></br>
-                            <h6>Sign in as vet locum</h6>
-                        </div>
-                    </LeftSide>
-
-
-                    <RightSide>
-                        <div className="img-link">
-                            <img src={ClinicLogin} className='img-fluid rounded' alt='sign-in as a clinic' onClick={() => { navigate(`/sign-in-clinic`) }} />
-                            <br></br>
-                            <br></br>
-                            <h6>Sign in as clinic</h6>
-                        </div>
-                    </RightSide>
-                </Links>
-            </Wrapper>
-
-        </>
-    );
+        <div className="about-side">
+          <div className="img-link">
+            <img
+              src={ClinicLogin}
+              className="img-fluid rounded"
+              alt="sign-in as a clinic"
+              onClick={() => navigate(`/sign-in-clinic`)}
+            />
+            <h6>Sign in as clinic</h6>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }
-
-
-const Title = styled.section`
-  width: 100%;
-  display: flex;
-  padding-top: 8%;
-  padding-bottom: 2%;
-  padding-left: 10%;
-  padding-right: 10%;
-  height: 100%;
-  color: #5BA4EE;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  @media (max-width: 960px) {
-    flex-direction: column;
-    padding-bottom: 60px;
-  }
-`;
-
-const Wrapper = styled.section`
-  width: 100%;
-  display: block;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-bottom: 5%;
-  height: 100%;
-  color:#5BA4EE;
-  @media (max-width: 960px) {
-    flex-direction: column;
-  }
-`;
-
-const Links = styled.section`
-  width: 100%;
-  display: flex;
-  padding: 0 10%;
-  height: 100%;
-  color: #5BA4EE;
-  @media (max-width: 960px) {
-    flex-direction: column;
-    padding-bottom: 60px;
-  }
-`;
-
-const LeftSide = styled.div`
-width: 50%;
-height: 100%;
-text-align: center;
-padding: 5%;
-
-@media (max-width: 960px) {
-  width: 100%;
-  padding-bottom: 60px;
-  text-align: center;
-}
-`;
-const RightSide = styled.div`
-  width: 50%;
-  height: 100%;
-  text-align: center;
-  padding: 5%;
-
-  @media (max-width: 960px) {
-    width: 100%;
-    padding-bottom: 60px;
-    text-align: center;
-  }
-`;

@@ -1,31 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './PageHeader.styles.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./PageHeader.styles.css";
 
-/**
- * PageHeader component for consistent page headers with background image
- */
-const PageHeader = ({ 
-  maoriTitle, 
-  englishTitle, 
-  text, 
+const PageHeader = ({
+  maoriTitle,
+  englishTitle,
+  text,
   background,
   overlay = true,
   centeredContent = true,
-  minHeight = '20vh'
+  minHeight = "20vh",
 }) => {
   return (
-    <div 
-      className={`page-header ${centeredContent ? 'page-header--centered' : ''}`} 
-      style={{ 
+    <div
+      className={`page-header ${
+        centeredContent ? "page-header--centered" : ""
+      }`}
+      style={{
         backgroundImage: `url(${background})`,
-        minHeight
+        minHeight,
       }}
     >
       {overlay && <div className="page-header__overlay"></div>}
-      
+
       <div className="page-header__content">
-        {maoriTitle && <h4 className="page-header__maori-title">{maoriTitle}</h4>}
+        {maoriTitle && (
+          <h4 className="page-header__maori-title">{maoriTitle}</h4>
+        )}
         {englishTitle && <h1 className="page-header__title">{englishTitle}</h1>}
         {text && <p className="page-header__text">{text}</p>}
       </div>

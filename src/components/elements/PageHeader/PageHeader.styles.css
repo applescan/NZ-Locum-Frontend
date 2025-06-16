@@ -1,0 +1,21 @@
+.page-header {
+  padding: 50px 20px;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+.page-header h4 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.page-header p {
+  max-width: 600px;
+  margin: 0 auto;
+}

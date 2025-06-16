@@ -1,0 +1,25 @@
+.job-details-wrapper {
+  padding: 100px 10%;
+  width: auto;
+  display: flex;
+}
+
+.loading-container,
+.error-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button-group {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+}
+
+.job-description {
+  white-space: pre-wrap;
+  margin: 20px 0;
+}

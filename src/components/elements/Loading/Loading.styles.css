@@ -1,0 +1,27 @@
+.load-wrapp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  flex-direction: column;
+}
+
+.load-1 .line {
+  width: 50px;
+  height: 5px;
+  background: #5BA4EE;
+  margin: 5px 0;
+  animation: loadingAnimation 1.2s infinite ease-in-out;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.5);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
