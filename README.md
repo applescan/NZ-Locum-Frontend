@@ -43,94 +43,6 @@ Here is a working live demo : https://nz-locum-network.netlify.app/
 - Software Architecture and Task Timeline: https://www.figma.com/file/kqeMSGwcqMYjBFViLUcspq/NZ-Veterinary-Locum?node-id=0%3A1&t=IdnttLOPOBcoOuM0-0
 - Wireframe designs: https://www.figma.com/file/kqeMSGwcqMYjBFViLUcspq/NZ-Veterinary-Locum?node-id=2%3A2&t=IdnttLOPOBcoOuM0-0
 
-## Project Structure
-
-The project follows a modular architecture:
-
-```
-src/
-  ├── api/                  # API service layer
-  │   ├── apiClient.js      # Base API client with interceptors
-  │   ├── clinicsService.js # Clinic-specific API calls
-  │   ├── doctorsService.js # Doctor-specific API calls
-  │   ├── jobsService.js    # Job-specific API calls
-  │   └── index.js          # API exports
-  │
-  ├── components/           # UI components
-  │   ├── common/           # Reusable UI elements
-  │   │   ├── Button/       # Button component
-  │   │   ├── Card/         # Card component
-  │   │   ├── Form/         # Form component
-  │   │   ├── Input/        # Input component
-  │   │   ├── Loading/      # Loading component
-  │   │   ├── Select/       # Select component
-  │   │   ├── TextArea/     # TextArea component
-  │   │   └── index.js      # Common component exports
-  │   │
-  │   ├── layout/           # Layout components
-  │   │   ├── Container/    # Container component
-  │   │   ├── Footer/       # Footer component
-  │   │   ├── Layout/       # Main layout wrapper
-  │   │   ├── Navbar/       # Navigation bar
-  │   │   ├── PageHeader/   # Page header with background
-  │   │   └── index.js      # Layout component exports
-  │   │
-  │   ├── features/         # Feature-specific components
-  │   └── pages/            # Page components
-  │
-  ├── context/              # React context providers
-  │   └── Context.jsx       # Application context
-  │
-  ├── hooks/                # Custom React hooks
-  │   ├── useApi.js         # API request hook
-  │   ├── useAuth.js        # Authentication hook
-  │   ├── useForm.js        # Form handling hook
-  │   └── index.js          # Hooks exports
-  │
-  ├── images/               # Image assets
-  │
-  ├── styles/               # Global styles
-  │   ├── variables.css     # CSS variables
-  │   ├── reset.css         # CSS reset
-  │   ├── utilities.css     # Utility classes
-  │   └── index.css         # Main stylesheet
-  │
-  ├── utils/                # Utility functions
-  │   └── validation.js     # Form validation utilities
-  │
-  ├── App.js                # Main application component
-  └── index.js              # Application entry point
-```
-
-## Component Library
-
-The application uses a custom component library built with consistent styling and behavior:
-
-- **Button**: Customizable button with various styles
-- **Card**: Container component for content
-- **Form**: Form handling component with validation
-- **Input**: Text input field with validation
-- **Loading**: Loading spinner for async operations
-- **Select**: Dropdown selection component
-- **TextArea**: Multiline text input component
-
-## API Layer
-
-The API layer is structured to provide a clean interface for making requests:
-
-- **apiClient.js**: Base client with interceptors for auth and error handling
-- **Service files**: Specialized services for different entity types
-- **useApi hook**: Custom hook for making API calls with loading/error states
-
-## Styling System
-
-The application uses a systematic approach to styling:
-
-- **CSS Variables**: Global variables for colors, spacing, etc.
-- **Reset CSS**: Normalized styling across browsers
-- **Utility Classes**: Helper classes for common styling patterns
-- **Component-specific CSS**: Scoped styles for individual components
-
 ### Built with
 
 • Axios
@@ -167,8 +79,6 @@ How to run on your own system using localhost:
 
 ### Bug / Feature Request
 
-- Known limitations: When you register a user, any uploaded image that's larger than 1 Mb will not go through, this is because the TSL certificate from the cloud server is built with an older version of security policies, your browser won't allow a large file to be sent. The console log will show that it's a CORS issue.. More information regarding TSL certificate can be found here https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html
-- If you're running the backend in your local, there should be no problem with CORS and uploading image larger than 1mb.
 - If you discover more bug (the website was unable to process the query and/or returned undesirable results), kindly open an issue [here](https://github.com/applescan/NZ-Veterinary-Locum-Frontend/issues/new) by mentioning your search term and the desired outcome.
 
 ## Author
